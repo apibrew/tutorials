@@ -1,0 +1,13 @@
+type: resource
+name: News
+properties:
+  - name: title
+    type: STRING
+  - name: description
+    type: STRING
+  - name: published
+    type: BOOLEAN
+  - name: date
+    type: DATE
+  - name: owner
+    type: STRING

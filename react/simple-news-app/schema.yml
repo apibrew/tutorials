@@ -1,0 +1,28 @@
+type: resource
+name: Category
+properties:
+  - name: title
+    type: STRING
+  - name: description
+    type: STRING
+annotations:
+  AllowPublicAccess: "true"
+---
+type: resource
+name: News
+properties:
+  - name: title
+    type: STRING
+  - name: description
+    type: STRING
+  - name: published
+    type: BOOLEAN
+  - name: date
+    type: DATE
+  - name: category
+    type: REFERENCE
+    reference:
+      resource:
+        name: Category
+annotations:
+  AllowPublicAccess: "true"

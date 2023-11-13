@@ -1,0 +1,19 @@
+type: resource
+name: UserRegistration
+virtual: true
+properties:
+  - name: username
+    type: STRING
+  - name: password
+    type: STRING
+annotations:
+  AllowPublicWriteAccess: "true"
+---
+type: record
+resource: Code
+namespace: nano
+properties:
+  name: UserRegistration.js
+  language: JAVASCRIPT
+  content:
+    $base64File: 'schema/UserRegistration.js'

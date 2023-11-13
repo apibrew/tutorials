@@ -1,0 +1,54 @@
+type: record
+resource: Role
+namespace: system
+properties:
+  name: simple-user
+  permissions:
+    - resource: User
+      namespace: system
+      operation: READ
+      recordSelector:
+        equal:
+          left:
+            property: username
+          right:
+            value: $username
+      permit: ALLOW
+    - resource: User
+      namespace: system
+      operation: UPDATE
+      recordSelector:
+        equal:
+          left:
+            property: username
+          right:
+            value: $username
+      permit: ALLOW
+    - resource: News
+      namespace: default
+      operation: FULL
+      recordSelector:
+        equal:
+          left:
+            property: owner
+          right:
+            value: $username
+      permit: ALLOW
+---
+type: record
+resource: User
+namespace: system
+properties:
+  username: user1
+  password: user1
+  roles:
+    - name: simple-user
+---
+type: record
+resource: User
+namespace: system
+properties:
+  username: user2
+  password: user2
+  roles:
+    - name: simple-user
