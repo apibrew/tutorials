@@ -5,9 +5,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {Message, MessageEntityInfo} from "../model/message";
 import {AppUser} from "../model/app-user";
-import {Typography} from "@mui/material";
+import {Box, IconButton, Typography} from "@mui/material";
 import {BooleanExpressionBuilder, useRecords, useRepository, useWatcher} from "@apibrew/react";
-import {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 export interface ChatWindowProps {
     me: AppUser
@@ -34,17 +34,36 @@ export function ChatWindow(props: ChatWindowProps) {
 
     const [message, setMessage] = useState<string>()
 
+    const lastMessageRef = useRef<HTMLLIElement>(null);
+
+    useEffect(() => {
+        if (lastMessageRef.current) {
+            lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
     return (
         <div>
             <Typography>Chatting with user: {props.user.username}</Typography>
-            <List>
-                {!messages && <div>Loading...</div>}
-                {messages && messages.map((message, index) => (
-                    <ListItem key={index}>
-                        <ListItemText primary={message.content} secondary={message.from}/>
-                    </ListItem>
-                ))}
-            </List>
+            <Box sx={{
+                height: '400px',
+                overflow: 'auto',
+            }}>
+                <List>
+                    {!messages && <div>Loading...</div>}
+                    {messages && messages.map((message, index) => (
+                        <ListItem ref={lastMessageRef}
+                                  key={index}>
+                            <ListItemText primary={message.content} secondary={message.from}/>
+                            {message.from === props.me.username && <IconButton onClick={() => {
+                                if (window.confirm('Are you sure?')) {
+                                    repository.delete(message.id)
+                                }
+                            }}>x</IconButton>}
+                        </ListItem>
+                    ))}
+                </List>
+            </Box>
             <TextField value={message}
                        onChange={e => setMessage(e.target.value)}
                        label="Type a message" fullWidth margin="normal"/>

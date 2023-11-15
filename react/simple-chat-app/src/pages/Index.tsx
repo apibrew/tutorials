@@ -30,9 +30,10 @@ export function Index() {
 
     return <div>
         Welcome: {me.username}
-        <Grid container>
+        <Grid container spacing={3}>
             <Grid item xs={3}>
                 <UserSelectionPanel users={users}
+                                    selectedUser={selectedUser}
                                     setSelectedUser={setSelectedUser}/>
 
                 <br/>
@@ -43,7 +44,7 @@ export function Index() {
                     navigate('/login')
                 }}>Logout</Button>
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={6}>
                 {selectedUser && <ChatWindow me={me} user={selectedUser}/>}
             </Grid>
         </Grid>

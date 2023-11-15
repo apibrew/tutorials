@@ -8,6 +8,7 @@ import {Box, ListItemButton, Typography} from "@mui/material";
 
 export interface UserSelectionPanelProps {
     users: AppUser[]
+    selectedUser?: AppUser
     setSelectedUser: (user: AppUser) => void
 }
 
@@ -22,7 +23,8 @@ export function UserSelectionPanel(props: UserSelectionPanelProps) {
                             <ListItemButton onClick={() => {
                                 props.setSelectedUser(user)
                             }}>
-                                <ListItemText primary={user.username}/>
+                                <ListItemText secondary={props.selectedUser == user ? 'active' : ''}
+                                              primary={user.username}/>
                             </ListItemButton>
                         </ListItem>
                         <Divider/>
