@@ -1,10 +1,26 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, TextField, Grid, Paper, Typography, Link} from '@mui/material';
 import {useNavigate} from "react-router-dom";
+import {useClient, useAxios} from "@apibrew/react";
 
 export const Login: React.FC = () => {
     // You can add state and functions here
     const navigate = useNavigate()
+
+    const axios = useAxios();
+
+    console.log('axios', axios)
+
+    const client = useClient()
+
+    useEffect(() => {
+        if (client.isAuthenticated()) {
+            navigate('/')
+        }
+    }, []);
+
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
     return (
         <Grid container alignItems="center" style={{minHeight: '100vh'}}>
@@ -22,7 +38,8 @@ export const Login: React.FC = () => {
                                 label="Email"
                                 variant="outlined"
                                 required
-                                // Add onChange to update state
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
                             />
                         </Grid>
                         <Grid item>
@@ -32,6 +49,8 @@ export const Login: React.FC = () => {
                                 type="password"
                                 variant="outlined"
                                 required
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
                                 // Add onChange to update state
                             />
                         </Grid>
@@ -40,6 +59,11 @@ export const Login: React.FC = () => {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
+                                onClick={() => {
+                                    client.authenticateWithUsernameAndPassword(username, password).then(() => {
+                                        navigate('/')
+                                    })
+                                }}
                                 // Add onClick to handle submit
                             >
                                 Sign In

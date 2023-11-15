@@ -1,0 +1,11 @@
+type: resource
+name: Message
+properties:
+  - name: content
+    type: STRING
+  - name: from
+    type: STRING
+  - name: to
+    type: STRING
+  - name: date
+    type: Timestamp

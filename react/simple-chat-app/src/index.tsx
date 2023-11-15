@@ -8,6 +8,7 @@ import "./index.css";
 import {Login} from "./pages/Login";
 import {Register} from "./pages/Register";
 import {Index} from "./pages/Index";
+import {ClientImpl, ClientProvider, LocalStorageTokenStorage} from "@apibrew/react";
 
 const router = createBrowserRouter([
     {
@@ -24,8 +25,14 @@ const router = createBrowserRouter([
     },
 ]);
 
+const client = new ClientImpl('http://localhost:9009')
+
+client.useTokenStorage(new LocalStorageTokenStorage())
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <RouterProvider router={router}/>
+        <ClientProvider value={client}>
+            <RouterProvider router={router}/>
+        </ClientProvider>
     </React.StrictMode>
 );
