@@ -1,11 +1,11 @@
 type: resource
 name: Message
 properties:
-  - name: content
+  content:
     type: STRING
-  - name: from
+  from:
     type: STRING
-  - name: to
+  to:
     type: STRING
-  - name: date
+  date:
     type: Timestamp

@@ -1,38 +1,37 @@
 type: system/Role
-properties:
-  name: chat-user
-  permissions:
-    - resource: Message
-      namespace: default
-      operation: FULL
-      recordSelector:
-        equal:
-          left:
-            property: from
-          right:
-            value: $username
-      permit: ALLOW
-    - resource: Message
-      namespace: default
-      operation: READ
-      recordSelector:
-        equal:
-          left:
-            property: to
-          right:
-            value: $username
-      permit: ALLOW
-    - resource: AppUser
-      namespace: default
-      operation: READ
-      permit: ALLOW
-    - resource: AppUser
-      namespace: default
-      operation: UPDATE
-      recordSelector:
-        equal:
-          left:
-            property: username
-          right:
-            value: $username
-      permit: ALLOW
+name: chat-user
+permissions:
+  - resource: Message
+    namespace: default
+    operation: FULL
+    recordSelector:
+      equal:
+        left:
+          property: from
+        right:
+          value: $username
+    permit: ALLOW
+  - resource: Message
+    namespace: default
+    operation: READ
+    recordSelector:
+      equal:
+        left:
+          property: to
+        right:
+          value: $username
+    permit: ALLOW
+  - resource: AppUser
+    namespace: default
+    operation: READ
+    permit: ALLOW
+  - resource: AppUser
+    namespace: default
+    operation: UPDATE
+    recordSelector:
+      equal:
+        left:
+          property: username
+        right:
+          value: $username
+    permit: ALLOW

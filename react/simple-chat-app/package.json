@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apibrew/react": "^1.0.42",
+    "@apibrew/react": "^1.0.60",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.17",
@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare-schema": "sh generate.sh"
+    "prepare-schema": "sh prepare.sh"
   },
   "eslintConfig": {
     "extends": [

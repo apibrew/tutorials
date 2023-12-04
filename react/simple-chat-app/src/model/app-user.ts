@@ -1,9 +1,9 @@
 
 export interface AppUser {
     id: string
-    username?: string
-    password?: string
     version: number
+    password?: string
+    username?: string
 }
 
 export const AppUserEntityInfo = {
@@ -14,18 +14,16 @@ export const AppUserEntityInfo = {
 
 export const AppUserResource = {
   "auditData": {
-    "createdBy": "2023-11-15T01:27:43Z",
-    "updatedBy": "admin",
-    "createdOn": "2023-11-14T08:55:49Z"
+    "createdBy": "admin",
+    "createdOn": "2023-12-04T21:32:38Z"
   },
   "name": "AppUser",
   "namespace": {
     "name": "default"
   },
   "virtual": true,
-  "properties": [
-    {
-      "name": "id",
+  "properties": {
+    "id": {
       "type": "UUID",
       "required": true,
       "immutable": true,
@@ -36,16 +34,13 @@ export const AppUserResource = {
         "SpecialProperty": "true"
       }
     },
-    {
-      "name": "username",
+    "password": {
       "type": "STRING"
     },
-    {
-      "name": "password",
+    "username": {
       "type": "STRING"
     },
-    {
-      "name": "version",
+    "version": {
       "type": "INT32",
       "required": true,
       "defaultValue": 1,
@@ -57,7 +52,7 @@ export const AppUserResource = {
         "SpecialProperty": "true"
       }
     }
-  ],
+  },
   "annotations": {
     "AllowPublicCreateAccess": "true",
     "NormalizedResource": "true"

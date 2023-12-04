@@ -7,10 +7,6 @@ export const Login: React.FC = () => {
     // You can add state and functions here
     const navigate = useNavigate()
 
-    const axios = useAxios();
-
-    console.log('axios', axios)
-
     const client = useClient()
 
     useEffect(() => {
@@ -62,6 +58,9 @@ export const Login: React.FC = () => {
                                 onClick={() => {
                                     client.authenticateWithUsernameAndPassword(username, password).then(() => {
                                         navigate('/')
+                                    }, (e) => {
+                                        console.error(e)
+                                        alert('Invalid username or password')
                                     })
                                 }}
                                 // Add onClick to handle submit

@@ -1,11 +1,11 @@
 
 export interface Message {
-    id: string
-    content?: string
-    from?: string
     to?: string
-    date?: boolean
+    date?: string | Date
+    from?: string
+    content?: string
     version: number
+    id: string
 }
 
 export const MessageEntityInfo = {
@@ -16,17 +16,24 @@ export const MessageEntityInfo = {
 
 export const MessageResource = {
   "auditData": {
-    "createdBy": "2023-11-15T01:27:43Z",
-    "updatedBy": "admin",
-    "createdOn": "2023-11-15T01:27:39Z"
+    "createdBy": "admin",
+    "createdOn": "2023-12-04T21:32:39Z"
   },
   "name": "Message",
   "namespace": {
     "name": "default"
   },
-  "properties": [
-    {
-      "name": "id",
+  "properties": {
+    "content": {
+      "type": "STRING"
+    },
+    "date": {
+      "type": "TIMESTAMP"
+    },
+    "from": {
+      "type": "STRING"
+    },
+    "id": {
       "type": "UUID",
       "required": true,
       "immutable": true,
@@ -37,24 +44,10 @@ export const MessageResource = {
         "SpecialProperty": "true"
       }
     },
-    {
-      "name": "content",
+    "to": {
       "type": "STRING"
     },
-    {
-      "name": "from",
-      "type": "STRING"
-    },
-    {
-      "name": "to",
-      "type": "STRING"
-    },
-    {
-      "name": "date",
-      "type": "BOOL"
-    },
-    {
-      "name": "version",
+    "version": {
       "type": "INT32",
       "required": true,
       "defaultValue": 1,
@@ -66,7 +59,7 @@ export const MessageResource = {
         "SpecialProperty": "true"
       }
     }
-  ],
+  },
   "annotations": {
     "NormalizedResource": "true"
   }

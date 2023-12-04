@@ -16,7 +16,9 @@ export function Index() {
         }
     }, []);
 
-    const users = useRecords<AppUser>(AppUserEntityInfo)
+    const users = useRecords<AppUser>(AppUserEntityInfo, {
+        limit: 1000
+    })
 
     const [selectedUser, setSelectedUser] = useState<AppUser>()
 
