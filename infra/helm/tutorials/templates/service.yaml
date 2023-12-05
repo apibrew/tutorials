@@ -1,0 +1,16 @@
+# service for manager ui
+apiVersion: v1
+kind: Service
+metadata:
+  name: "tutorials"
+  labels:
+    app: "tutorials"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: next
+  selector:
+    app: "tutorials"

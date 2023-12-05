@@ -23,6 +23,7 @@ const router = createBrowserRouter([
     },
 ]);
 
+// project-f5fa4e.apibrew.io can be replaced with your project's hostname. You can get it from https://manager.apibrew.io/dashboard/projects => ApbrConfig => Hostname
 const client = new ClientImpl('https://project-f5fa4e.apibrew.io:8443')
 
 client.useTokenStorage(new LocalStorageTokenStorage())

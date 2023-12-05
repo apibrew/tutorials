@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tutorials-nginx-config
+  namespace: "{{ .Values.namespace }}"
+data:
+{{ (.Files.Glob "conf.d/*").AsConfig | indent 2 }}
