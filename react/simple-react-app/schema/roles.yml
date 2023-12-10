@@ -1,0 +1,6 @@
+type: system/Role
+name: chat-user
+permissions:
+  - namespace: default
+    operation: FULL
+    permit: ALLOW

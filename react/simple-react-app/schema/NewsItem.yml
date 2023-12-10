@@ -1,0 +1,20 @@
+type: resource
+name: NewsItem
+properties:
+  name:
+    type: STRING
+    require: true
+    unique: true
+  title:
+    type: STRING
+    require: true
+  content:
+    type: STRING
+  details:
+    type: STRUCT
+    typeRef: NewsItemDetails
+types:
+  - name: NewsItemDetails
+    properties:
+      category:
+        type: STRING
