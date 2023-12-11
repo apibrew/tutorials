@@ -1,0 +1,33 @@
+type: resource
+name: Transaction
+properties:
+  wallet:
+    type: REFERENCE
+    required: true
+    immutable: true
+    reference:
+      resource:
+        name: Wallet
+  amount:
+    type: INT32
+    required: true
+    immutable: true
+  type:
+    type: ENUM
+    required: true
+    immutable: true
+    enumValues:
+      - DEPOSIT
+      - WITHDRAW
+      - TRANSFER
+  destinationWallet: # Destination wallet is only available for TRANSFER type
+    type: REFERENCE
+    immutable: true
+    reference:
+      resource:
+        name: Wallet
+  description:
+    type: STRING
+    immutable: true
+  notes:
+    type: STRING
