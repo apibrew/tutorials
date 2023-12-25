@@ -15,7 +15,9 @@ export const AppUserEntityInfo = {
 export const AppUserResource = {
   "auditData": {
     "createdBy": "admin",
-    "createdOn": "2023-12-04T21:32:38Z"
+    "updatedBy": "admin",
+    "createdOn": "2023-12-22T00:35:53Z",
+    "updatedOn": "2023-12-22T00:57:12Z"
   },
   "name": "AppUser",
   "namespace": {

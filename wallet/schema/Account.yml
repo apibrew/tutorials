@@ -1,0 +1,10 @@
+type: resource
+name: Account
+properties:
+  name:
+    type: STRING
+    required: true
+  balance:
+    type: INT32
+    required: true
+    defaultValue: 0

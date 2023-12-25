@@ -1,0 +1,8 @@
+Account
+name
+balance
+
+Transaction
+amount
+sourceAccount
+destinationAccount

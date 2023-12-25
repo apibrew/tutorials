@@ -1,11 +1,11 @@
 
 export interface Message {
-    to?: string
-    date?: string | Date
     from?: string
     content?: string
     version: number
     id: string
+    to?: string
+    date?: string | Date
 }
 
 export const MessageEntityInfo = {
@@ -17,7 +17,9 @@ export const MessageEntityInfo = {
 export const MessageResource = {
   "auditData": {
     "createdBy": "admin",
-    "createdOn": "2023-12-04T21:32:39Z"
+    "updatedBy": "admin",
+    "createdOn": "2023-12-22T00:57:08Z",
+    "updatedOn": "2023-12-22T00:57:12Z"
   },
   "name": "Message",
   "namespace": {
