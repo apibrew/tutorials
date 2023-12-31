@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "build": "webpack",
+    "preDeploy": "npm run build",
+    "generateModel": "apbr generate model --filter name=Task --path=nano/model --platform=typescript; apbr generate model --filter name=TaskExecution --path=nano/model --platform=typescript",
+    "prepareSchema": "apbr apply -f 'schema/*.yml'",
+    "deploy": "apbr deploy -f dist/bundle.js --override"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}

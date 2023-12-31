@@ -1,0 +1,50 @@
+type: resource
+name: TaskExecution
+properties:
+  task:
+    type: REFERENCE
+    required: true
+    reference:
+      resource:
+        name: Task
+  steps:
+    type: ARRAY
+    item:
+      type: STRUCT
+      typeRef: TaskStep
+  status:
+    type: ENUM
+    enumValues:
+      - PENDING
+      - RUNNING
+      - COMPLETED
+      - FAILED
+types:
+  - name: TaskStep
+    properties:
+      kind:
+        type: ENUM
+        enumValues:
+          - CREATE_RECORD
+          - EXECUTE_NANO_CODE
+      record:
+        type: STRUCT
+        typeRef: Record
+      nanoCode:
+        type: REFERENCE
+        reference:
+          resource:
+            name: Code
+            namespace:
+              name: nano
+  - name: Record
+    properties:
+      resource:
+        type: REFERENCE
+        reference:
+          resource:
+            name: Resource
+            namespace:
+              name: system
+      properties:
+        type: OBJECT

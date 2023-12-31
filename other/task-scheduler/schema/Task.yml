@@ -1,0 +1,73 @@
+type: resource
+name: Task
+properties:
+  name:
+    type: STRING
+    required: true
+    unique: true
+  description:
+    type: STRING
+  schedule:
+    type: STRUCT
+    typeRef: Schedule
+  execution:
+    type: STRUCT
+    typeRef: TaskExecution
+  lastExecution:
+    type: TIMESTAMP
+  nextExecution:
+    type: TIMESTAMP
+types:
+  - name: Schedule
+    properties:
+      cron: # cron expression
+        type: STRING
+        description: |
+          Cron expression. See https://en.wikipedia.org/wiki/Cron
+      fixedDelay: # in milliseconds
+        type: INT32
+        description: |
+          Fixed delay in milliseconds between the end of the last execution and the start of the next.
+      fixedRate: # in milliseconds
+        type: INT32
+        description: |
+          Fixed rate in milliseconds between the start of each execution.
+      initialDelay: # in milliseconds
+        type: INT32
+        description: |
+          Initial delay in milliseconds before the first execution.
+  - name: TaskExecution
+    properties:
+      steps:
+        type: ARRAY
+        item:
+          type: STRUCT
+          typeRef: TaskStep
+  - name: TaskStep
+    properties:
+      kind:
+        type: ENUM
+        enumValues:
+          - CREATE_RECORD
+          - EXECUTE_NANO_CODE
+      record:
+        type: STRUCT
+        typeRef: Record
+      nanoCode:
+        type: REFERENCE
+        reference:
+          resource:
+            name: Code
+            namespace:
+              name: nano
+  - name: Record
+    properties:
+      resource:
+        type: REFERENCE
+        reference:
+          resource:
+            name: Resource
+            namespace:
+              name: system
+      properties:
+        type: OBJECT
