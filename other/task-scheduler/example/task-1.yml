@@ -3,7 +3,7 @@ name: task-1
 description: |
   This task transfers 1000 units from account-1 to account-2 every 10 seconds.
 schedule:
-  fixedDelay: 3200
+  fixedDelay: 15000
 execution:
   steps:
     - nanoCode: |

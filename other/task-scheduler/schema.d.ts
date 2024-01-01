@@ -19,6 +19,7 @@ export interface resourceObject<T> {
     afterUpdate(operator: RecordOperator<T>): void
 
     create(entity: T): T
+    delete(entity: T): T
     load(entity: T): T
     list(params: RecordSearchParams): searchResult<T>
     update(entity: T): void
@@ -98,6 +99,7 @@ export interface EventSelector {
 }
 
 export interface RecordSearchParams {
+    filters?: {[key: string]: string}
     query?: BooleanExpression
     limit?: number
     offset?: number

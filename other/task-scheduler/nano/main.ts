@@ -5,10 +5,6 @@ import {computeNextExecutionTime} from "./compute-schedule";
 const TaskResource = resource<Task>('Task')
 const TaskExecutionResource = resource<TaskExecution>('TaskExecution')
 
-const destroyTask = (task: Task) => {
-
-}
-
 const executionScheduleMap = new Map<string, {
     task: Task,
     execution: TaskExecution
@@ -22,14 +18,12 @@ function scheduleTaskExecution(task: Task) {
     // if nextExecution is null, or it is in past
     if (!task.nextExecution || new Date(Date.parse(task.nextExecution as string)).getTime() < new Date().getTime()) {
         console.warn('Task is not scheduled for execution', task)
+        rescheduleTask(task);
+        console.log('Task is rescheduled', task)
         return
     }
 
     let tillNextExecution = new Date(Date.parse(task.nextExecution as string)).getTime() - new Date().getTime()
-
-    if (tillNextExecution > 1000) {
-        tillNextExecution = 10000
-    }
 
     const timeout = setTimeout(() => {
         console.log('Executing task', task)
@@ -73,9 +67,32 @@ TaskResource.beforeUpdate(task => {
     return task;
 })
 
-TaskResource.afterDelete(item => {
-    destroyTask(item)
+TaskResource.beforeDelete(item => {
+    while (true) {
+        const list = TaskExecutionResource.list({
+            filters: {
+                task: item.id
+            },
+            limit: 10000
+        })
+
+        if (list.total == 0) {
+            break
+        }
+
+        list.content.forEach(item => {
+            TaskExecutionResource.delete(item)
+        })
+
+        console.log('Deleted task executions', list.content.length)
+    }
 })
+
+function rescheduleTask(task: Task) {
+    task.lastExecution = new Date()
+    task.nextExecution = computeNextExecutionTime(task)
+    TaskResource.update(task)
+}
 
 // Execution
 TaskExecutionResource.beforeCreate(execution => {
@@ -105,9 +122,7 @@ TaskExecutionResource.beforeCreate(execution => {
         console.error(e)
     }
 
-    task.lastExecution = new Date()
-    task.nextExecution = computeNextExecutionTime(task)
-    TaskResource.update(task)
+    rescheduleTask(task);
 
     console.debug('TaskExecution beforeCreate done', execution)
 
@@ -119,3 +134,5 @@ const tasks = TaskResource.list({
 })
 
 tasks.content.forEach(scheduleTaskExecution)
+
+console.log('Scheduled tasks', tasks.content.length)
