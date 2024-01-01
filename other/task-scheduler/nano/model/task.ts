@@ -1,15 +1,13 @@
-// import {Code} from './code';
-// import {Resource} from './resource';
 
 export interface Task {
-    description?: string
     lastExecution?: string | Date
     nextExecution?: string | Date
     id: string
     name: string
     version: number
-    schedule?: Schedule
-    execution?: TaskExecution
+    schedule: Schedule
+    execution: TaskExecution
+    description?: string
 }
 
 export const TaskEntityInfo = {
@@ -19,30 +17,25 @@ export const TaskEntityInfo = {
 }
 
 export interface Schedule {
-    cron: string
     fixedRate: number
     fixedDelay: number
     initialDelay: number
+    cron: string
 }
 
 export interface TaskExecution {
-    steps: boolean
+    steps: TaskStep[]
 }
 
 export interface TaskStep {
-    kind: Kind
+    nanoCode: string
     record: Record
-    nanoCode: any
 }
 
 export interface Record {
-    resource: any
+    resource: string
+    namespace: string
     properties: object
-}
-
-export enum Kind {
-    CREATE_RECORD = "CREATE_RECORD",
-    EXECUTE_NANO_CODE = "EXECUTE_NANO_CODE",
 }
 
 export const TaskResource = {
@@ -50,7 +43,7 @@ export const TaskResource = {
     "createdBy": "admin",
     "updatedBy": "admin",
     "createdOn": "2023-12-31T12:00:28Z",
-    "updatedOn": "2023-12-31T23:43:53Z"
+    "updatedOn": "2024-01-01T13:58:46Z"
   },
   "name": "Task",
   "namespace": {
@@ -62,7 +55,8 @@ export const TaskResource = {
     },
     "execution": {
       "type": "STRUCT",
-      "typeRef": "TaskExecution"
+      "typeRef": "TaskExecution",
+      "required": true
     },
     "id": {
       "type": "UUID",
@@ -88,7 +82,8 @@ export const TaskResource = {
     },
     "schedule": {
       "type": "STRUCT",
-      "typeRef": "Schedule"
+      "typeRef": "Schedule",
+      "required": true
     },
     "version": {
       "type": "INT32",
@@ -133,7 +128,11 @@ export const TaskResource = {
       "description": "",
       "properties": {
         "steps": {
-          "type": "BOOL"
+          "type": "LIST",
+          "item": {
+            "type": "STRUCT",
+            "typeRef": "TaskStep"
+          }
         }
       }
     },
@@ -142,23 +141,13 @@ export const TaskResource = {
       "title": "",
       "description": "",
       "properties": {
-        "kind": {
-          "type": "ENUM",
-          "enumValues": [
-            "CREATE_RECORD",
-            "EXECUTE_NANO_CODE"
-          ]
-        },
         "nanoCode": {
-          "type": "REFERENCE",
-          "reference": {
-            "resource": {
-              "name": "Code",
-              "namespace": {
-                "name": "nano"
-              }
-            },
-            "cascade": false
+          "type": "STRING",
+          "length": 64000,
+          "title": "Content",
+          "description": "Code content",
+          "annotations": {
+            "SQLType": "TEXT"
           }
         },
         "record": {
@@ -172,20 +161,16 @@ export const TaskResource = {
       "title": "",
       "description": "",
       "properties": {
+        "namespace": {
+          "type": "STRING",
+          "required": true
+        },
         "properties": {
           "type": "OBJECT"
         },
         "resource": {
-          "type": "REFERENCE",
-          "reference": {
-            "resource": {
-              "name": "Resource",
-              "namespace": {
-                "name": "system"
-              }
-            },
-            "cascade": false
-          }
+          "type": "STRING",
+          "required": true
         }
       }
     }

@@ -1,9 +1,7 @@
 import {Task} from './task';
-// import {Code} from './code';
-// import {Resource} from './resource';
 
 export interface TaskExecution {
-    steps?: boolean
+    steps?: TaskStep[]
     status?: Status
     version: number
     id: string
@@ -13,18 +11,18 @@ export interface TaskExecution {
 export const TaskExecutionEntityInfo = {
     namespace: "default",
     resource: "TaskExecution",
-    restPath: "taskexecution",
+    restPath: "task-execution",
 }
 
 export interface TaskStep {
-    kind: Kind
     record: Record
-    nanoCode: any
+    nanoCode: string
 }
 
 export interface Record {
-    resource: any
     properties: object
+    resource: string
+    namespace: string
 }
 
 export enum Status {
@@ -34,17 +32,12 @@ export enum Status {
     FAILED = "FAILED",
 }
 
-export enum Kind {
-    CREATE_RECORD = "CREATE_RECORD",
-    EXECUTE_NANO_CODE = "EXECUTE_NANO_CODE",
-}
-
 export const TaskExecutionResource = {
   "auditData": {
     "createdBy": "admin",
     "updatedBy": "admin",
     "createdOn": "2023-12-31T12:00:31Z",
-    "updatedOn": "2023-12-31T23:43:56Z"
+    "updatedOn": "2024-01-01T13:58:46Z"
   },
   "name": "TaskExecution",
   "namespace": {
@@ -72,7 +65,11 @@ export const TaskExecutionResource = {
       ]
     },
     "steps": {
-      "type": "BOOL"
+      "type": "LIST",
+      "item": {
+        "type": "STRUCT",
+        "typeRef": "TaskStep"
+      }
     },
     "task": {
       "type": "REFERENCE",
@@ -106,23 +103,13 @@ export const TaskExecutionResource = {
       "title": "",
       "description": "",
       "properties": {
-        "kind": {
-          "type": "ENUM",
-          "enumValues": [
-            "CREATE_RECORD",
-            "EXECUTE_NANO_CODE"
-          ]
-        },
         "nanoCode": {
-          "type": "REFERENCE",
-          "reference": {
-            "resource": {
-              "name": "Code",
-              "namespace": {
-                "name": "nano"
-              }
-            },
-            "cascade": false
+          "type": "STRING",
+          "length": 64000,
+          "title": "Content",
+          "description": "Code content",
+          "annotations": {
+            "SQLType": "TEXT"
           }
         },
         "record": {
@@ -136,20 +123,16 @@ export const TaskExecutionResource = {
       "title": "",
       "description": "",
       "properties": {
+        "namespace": {
+          "type": "STRING",
+          "required": true
+        },
         "properties": {
           "type": "OBJECT"
         },
         "resource": {
-          "type": "REFERENCE",
-          "reference": {
-            "resource": {
-              "name": "Resource",
-              "namespace": {
-                "name": "system"
-              }
-            },
-            "cascade": false
-          }
+          "type": "STRING",
+          "required": true
         }
       }
     }

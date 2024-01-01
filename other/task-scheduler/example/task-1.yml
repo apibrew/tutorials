@@ -1,0 +1,16 @@
+type: Task
+name: task-1
+description: |
+  This task transfers 1000 units from account-1 to account-2 every 10 seconds.
+schedule:
+  fixedDelay: 3200
+execution:
+  steps:
+    - nanoCode: |
+        console.log('Hello World!', execution.id);
+    - record:
+        resource: Person
+        namespace: default
+        properties:
+          firstName: Taleh
+          lastName: Ibrahimli

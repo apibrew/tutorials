@@ -1,5 +1,6 @@
 export interface searchResult<T> {
     content: T[]
+    total: number
 }
 
 declare type RecordOperator<T> = (record: T, event?: Event) => T | void
@@ -10,16 +11,19 @@ declare type console = any
 
 export interface resourceObject<T> {
     beforeCreate(operator: RecordOperator<T>): void
+    beforeUpdate(operator: RecordOperator<T>): void
+    beforeDelete(operator: RecordOperator<T>): void
 
     afterCreate(operator: RecordOperator<T>): void
     afterDelete(operator: RecordOperator<T>): void
     afterUpdate(operator: RecordOperator<T>): void
 
-    create(): void
+    create(entity: T): T
+    load(entity: T): T
+    list(params: RecordSearchParams): searchResult<T>
+    update(entity: T): void
 
-    update(): void
-
-    define(): void
+    define(entity: T): void
 
     search(): searchResult<T>
 }
@@ -94,10 +98,10 @@ export interface EventSelector {
 }
 
 export interface RecordSearchParams {
-    query: BooleanExpression
-    limit: number
-    offset: number
-    resolveReferences: string[]
+    query?: BooleanExpression
+    limit?: number
+    offset?: number
+    resolveReferences?: string[]
 }
 
 export interface Event {

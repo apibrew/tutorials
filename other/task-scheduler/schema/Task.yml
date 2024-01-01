@@ -9,9 +9,11 @@ properties:
     type: STRING
   schedule:
     type: STRUCT
+    required: true
     typeRef: Schedule
   execution:
     type: STRUCT
+    required: true
     typeRef: TaskExecution
   lastExecution:
     type: TIMESTAMP
@@ -39,35 +41,29 @@ types:
   - name: TaskExecution
     properties:
       steps:
-        type: ARRAY
+        type: LIST
         item:
           type: STRUCT
           typeRef: TaskStep
   - name: TaskStep
     properties:
-      kind:
-        type: ENUM
-        enumValues:
-          - CREATE_RECORD
-          - EXECUTE_NANO_CODE
       record:
         type: STRUCT
         typeRef: Record
       nanoCode:
-        type: REFERENCE
-        reference:
-          resource:
-            name: Code
-            namespace:
-              name: nano
+        type: STRING
+        title: Content
+        description: Code content
+        length: 64000
+        annotations:
+          SQLType: "TEXT"
   - name: Record
     properties:
       resource:
-        type: REFERENCE
-        reference:
-          resource:
-            name: Resource
-            namespace:
-              name: system
+        type: STRING
+        required: true
+      namespace:
+        type: STRING
+        required: true
       properties:
         type: OBJECT

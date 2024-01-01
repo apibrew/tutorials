@@ -1,10 +1,9 @@
 {
   "scripts": {
     "build": "webpack",
-    "preDeploy": "npm run build",
-    "generateModel": "apbr generate model --filter name=Task --path=nano/model --platform=typescript; apbr generate model --filter name=TaskExecution --path=nano/model --platform=typescript",
+    "generateModel": "sh generate.sh",
     "prepareSchema": "apbr apply -f 'schema/*.yml'",
-    "deploy": "apbr deploy -f dist/bundle.js --override"
+    "deploy": "webpack; apbr deploy -f dist/bundle.js --override"
   },
   "devDependencies": {
     "ts-loader": "^9.5.1",
