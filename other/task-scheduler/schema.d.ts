@@ -13,20 +13,22 @@ export interface resourceObject<T> {
     beforeCreate(operator: RecordOperator<T>): void
     beforeUpdate(operator: RecordOperator<T>): void
     beforeDelete(operator: RecordOperator<T>): void
+    beforeGet(operator: RecordOperator<T>): void
+    beforeList(operator: RecordOperator<T>): void
 
     afterCreate(operator: RecordOperator<T>): void
     afterDelete(operator: RecordOperator<T>): void
     afterUpdate(operator: RecordOperator<T>): void
+    afterGet(operator: RecordOperator<T>): void
+    afterList(operator: RecordOperator<T>): void
 
     create(entity: T): T
     delete(entity: T): T
     load(entity: T): T
+    get(id: string): T
     list(params: RecordSearchParams): searchResult<T>
     update(entity: T): void
-
     define(entity: T): void
-
-    search(): searchResult<T>
 }
 
 declare global {
