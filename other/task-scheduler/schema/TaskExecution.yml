@@ -4,9 +4,7 @@ properties:
   task:
     type: REFERENCE
     required: true
-    reference:
-      resource:
-        name: Task
+    reference: Task
   steps:
     type: LIST
     item:

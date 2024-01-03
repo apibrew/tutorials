@@ -4,15 +4,11 @@ properties:
   sourceAccount:
     type: REFERENCE
     require: true
-    reference:
-      resource:
-        name: Account
+    reference: Account
   destinationAccount:
     type: REFERENCE
     require: true
-    reference:
-      resource:
-        name: Account
+    reference: Account
   amount:
     type: INT32
     required: true

@@ -21,8 +21,6 @@ properties:
     type: DATE
   - name: category
     type: REFERENCE
-    reference:
-      resource:
-        name: Category
+    reference: Category
 annotations:
   AllowPublicAccess: "true"
