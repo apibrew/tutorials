@@ -1,11 +1,11 @@
 import {Task} from './task';
 
 export interface TaskExecution {
-    steps?: TaskStep[]
-    status?: Status
     version: number
     id: string
     task: Task
+    steps?: TaskStep[]
+    status?: Status
 }
 
 export const TaskExecutionEntityInfo = {
@@ -20,9 +20,9 @@ export interface TaskStep {
 }
 
 export interface Record {
-    properties: object
     resource: string
     namespace: string
+    properties: object
 }
 
 export enum Status {
@@ -36,8 +36,8 @@ export const TaskExecutionResource = {
   "auditData": {
     "createdBy": "admin",
     "updatedBy": "admin",
-    "createdOn": "2023-12-31T12:00:31Z",
-    "updatedOn": "2024-01-01T13:58:46Z"
+    "createdOn": "2024-01-03T11:13:29Z",
+    "updatedOn": "2024-01-03T23:05:42Z"
   },
   "name": "TaskExecution",
   "namespace": {
@@ -74,15 +74,7 @@ export const TaskExecutionResource = {
     "task": {
       "type": "REFERENCE",
       "required": true,
-      "reference": {
-        "resource": {
-          "name": "Task",
-          "namespace": {
-            "name": "default"
-          }
-        },
-        "cascade": false
-      }
+      "reference": "default/Task"
     },
     "version": {
       "type": "INT32",

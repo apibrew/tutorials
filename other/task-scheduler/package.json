@@ -2,7 +2,7 @@
   "scripts": {
     "build": "webpack",
     "generateModel": "sh generate.sh",
-    "prepareSchema": "apbr apply -f 'schema/*.yml' --",
+    "prepareSchema": "apbr apply -f 'schema/*.yml' --force",
     "deploy": "webpack; apbr deploy -f dist/bundle.js --override"
   },
   "devDependencies": {

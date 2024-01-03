@@ -1,13 +1,13 @@
 
 export interface Task {
-    lastExecution?: string | Date
-    nextExecution?: string | Date
     id: string
     name: string
     version: number
     schedule: Schedule
     execution: TaskExecution
     description?: string
+    lastExecution?: string | Date
+    nextExecution?: string | Date
 }
 
 export const TaskEntityInfo = {
@@ -17,10 +17,10 @@ export const TaskEntityInfo = {
 }
 
 export interface Schedule {
-    fixedRate: number
-    fixedDelay: number
     initialDelay: number
     cron: string
+    fixedRate: number
+    fixedDelay: number
 }
 
 export interface TaskExecution {
@@ -28,8 +28,8 @@ export interface TaskExecution {
 }
 
 export interface TaskStep {
-    nanoCode: string
     record: Record
+    nanoCode: string
 }
 
 export interface Record {
@@ -42,8 +42,8 @@ export const TaskResource = {
   "auditData": {
     "createdBy": "admin",
     "updatedBy": "admin",
-    "createdOn": "2023-12-31T12:00:28Z",
-    "updatedOn": "2024-01-01T13:58:46Z"
+    "createdOn": "2024-01-03T11:13:29Z",
+    "updatedOn": "2024-01-03T23:05:42Z"
   },
   "name": "Task",
   "namespace": {
