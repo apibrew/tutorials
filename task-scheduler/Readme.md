@@ -1,6 +1,8 @@
 Task Scheduler
 ========
 
+Youtube Video: https://www.youtube.com/watch?v=H9zRLsdDAfs
+
 ## Setup
 
 ### Install dependencies
