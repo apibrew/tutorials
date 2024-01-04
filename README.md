@@ -17,4 +17,7 @@ Link: https://simple-react-app.tutorials.apibrew.io
 ## Wallet
 source: [wallet](wallet)
 
+## Task Scheduler
+source: [task-scheduler](task-scheduler)
+
 [//]: # (# React Native)
